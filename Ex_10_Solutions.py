@@ -46,12 +46,10 @@ def nll_exponential(p,obs):
 #Guess for exponential model
 guess_exponential = np.array([1,1,1,1])
 
-#Gets negative log likelihood for linear model, then prints it
+#Gets negative log likelihood for linear model
 linear_L = nll_linear(guess_linear,df)
-print(linear_L)
-#Gets negative log likelihood for exponential model, then prints it
+#Gets negative log likelihood for exponential model
 exponential_L = nll_exponential(guess_exponential,df)
-print(exponential_L)
 
 #Function to take the likelihood ratio
 def likelihood_ratio(llmin, llmax):
@@ -68,9 +66,10 @@ b=likelihood_ratio(exponential_L,linear_L)
 p = chi2.sf(a,1)
 print('p: %5f' % p)
 
-#takes the p value for this test of exponential over linear, lower should be better
-p2 = chi2.sf(b,1)
-print('p2: %f' % p2)
+if(p < .05):
+    print("The linear model is a better fit than the exponential model with the above p value")
+else:
+    print("The exponential model is a better fit than the linear model with the above p value")
 
 #Output:
 #199603.38342
